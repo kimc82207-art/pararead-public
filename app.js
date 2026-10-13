@@ -13,7 +13,7 @@ const daily=()=>data.logs.filter(l=>l.date===date()).reduce((a,l)=>a+l.delta,0);
 const xp=()=>data.logs.reduce((a,l)=>a+Math.max(0,l.delta),0)+data.books.filter(b=>b.page>=b.total).length*100;
 const totalDone=()=>data.books.filter(b=>b.page>=b.total).length;
 const active=()=>data.books.filter(b=>b.page<b.total);
-const metric=(n,label)=>'<div class="metric"><strong>'+fmt(n)+'</strong><small>'+label+'</small></div>';
+const metric=(n,label)=>'<div class="metric"><strong>'+(typeof n==='number'?fmt(n):esc(n))+'</strong><small>'+label+'</small></div>';
 const spectrum=()=>'<div class="spectrum">'+colors.map(c=>'<span style="background:'+c+'"></span>').join('')+'</div>';
 const bookCard=b=>'<article class="book"><div class="book-top"><div class="cover" style="background:'+color(b.genre)+'">▤</div><div class="book-info"><div class="book-title">'+esc(b.title)+'</div><div class="muted">'+esc(b.author||'저자 미입력')+' · '+esc(b.genre)+' · '+b.page+'/'+b.total+'쪽 · '+pct(b)+'%</div></div></div><div class="progress"><div style="width:'+pct(b)+'%;background:'+color(b.genre)+'"></div></div><div class="book-actions"><button data-action="minus" data-id="'+b.id+'">−10쪽</button><button data-action="plus" data-id="'+b.id+'">+10쪽</button><button data-action="edit" data-id="'+b.id+'">수정</button><button data-action="delete" data-id="'+b.id+'">삭제</button></div></article>';
 const empty='<div class="empty"><b>아직 등록한 책이 없어.</b>첫 책을 추가하고 독서 세계를 열어보자.</div>';
